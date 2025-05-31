@@ -3,6 +3,7 @@ import express from "express";
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 import cors from "cors";
+import path from "path";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ const corsOptions: cors.CorsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "dist")));
 
 const users: Record<string, string[]> = {}; // Tracks users in each room
 const socketToRoom: Record<string, string> = {}; // Maps socket IDs to room IDs
@@ -85,3 +87,7 @@ io.on("connection", (socket: Socket) => {
 
 const PORT = process.env.PORT || 8000;
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
