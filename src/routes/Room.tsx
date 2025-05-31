@@ -43,7 +43,9 @@ const Room: React.FC = () => {
 
   useEffect(() => {
     console.log("roomId", roomID);
-    socketRef.current = io("https://laserxbooking.in/");
+    socketRef.current = io("https://laserxbooking.in/", {
+      secure: true,
+    });
 
     navigator.mediaDevices
       .getUserMedia({ video: videoConstraints, audio: true })
