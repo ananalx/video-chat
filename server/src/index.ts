@@ -9,9 +9,13 @@ dotenv.config();
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
 
-const allowedOrigins = ["http://localhost:5173", "http://192.168.1.38:5173"];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://laserxbooking.in/",
+  "https://www.laserxbooking.in/",
+  "http://192.168.1.105:3000",
+];
 
 const corsOptions: cors.CorsOptions = {
   origin: allowedOrigins,
@@ -24,6 +28,13 @@ app.use(express.static(path.join(__dirname, "dist")));
 
 const users: Record<string, string[]> = {}; // Tracks users in each room
 const socketToRoom: Record<string, string> = {}; // Maps socket IDs to room IDs
+
+const io = new Server(server, {
+  cors: {
+    origin: ["https://www.laserxbooking.in"],
+    methods: ["GET", "POST"],
+  },
+});
 
 io.on("connection", (socket: Socket) => {
   socket.on("join room", (roomID: string) => {
@@ -85,7 +96,7 @@ io.on("connection", (socket: Socket) => {
   });
 });
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
 app.get("/*", (req, res) => {
