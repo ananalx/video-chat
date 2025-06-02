@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CreateRoom from "./screens/createRoom/CreateRoom";
 import Room from "./screens/room/Room";
 import ErrorBoundary from "./utils/ErrorBoundary";
-// import { Switch } from "@mui/material";
 import { View } from "./library";
 import "./index.css";
 import LightModeIcon from "@mui/icons-material/LightMode";

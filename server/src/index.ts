@@ -10,12 +10,7 @@ dotenv.config();
 const app = express();
 const server = createServer(app);
 
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://laserxbooking.in/",
-  "https://www.laserxbooking.in/",
-  "http://192.168.1.105:3000",
-];
+const allowedOrigins = ["http://localhost:5173", "http://192.168.1.105:5173"];
 
 const corsOptions: cors.CorsOptions = {
   origin: allowedOrigins,
@@ -45,15 +40,6 @@ io.on("connection", (socket: Socket) => {
         socket.emit("room full");
         return;
       }
-
-      // if (users[roomID].includes(socket.id)) {
-      //   socketToRoom[socket.id] = roomID;
-      //   console.log("users", users);
-
-      //   const usersInRoom = users[roomID].filter((user) => user.id !== socket.id);
-      //   socket.emit("all users", usersInRoom);
-      //   return;
-      // }
 
       users[roomID].push({ id: socket.id, name });
       socketToRoom[socket.id] = roomID;

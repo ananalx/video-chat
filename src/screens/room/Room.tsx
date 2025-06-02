@@ -28,13 +28,9 @@ const Room: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("peers", peers, peersRef);
-  }, [peers, peersRef]);
-
-  useEffect(() => {
-    console.log("roomId", roomID);
     socketRef.current = io("http://localhost:4000/");
 
+// get camera and mic permissions
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
@@ -43,7 +39,6 @@ const Room: React.FC = () => {
         }
 
         socketRef.current?.emit("join room", { roomID, name: data.userName });
-        console.log("roomId", roomID, data);
 
         socketRef.current?.on(
           "all users",
@@ -175,7 +170,8 @@ const Room: React.FC = () => {
     peer.signal(incomingSignal);
     return peer;
   }
-
+  
+// audio toggle
   function handleToggleAudio() {
     setAudio((p) => !p);
 
@@ -187,7 +183,7 @@ const Room: React.FC = () => {
       });
     }
   }
-
+// video toggle
   function handleToggleVideo() {
     setVideo((p) => !p);
     const videoElem = userVideo.current;
