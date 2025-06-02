@@ -13,6 +13,24 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.dark {
+  font-size: 2rem;
+  background: linear-gradient(
+    to right,
+    #7953cd 20%,
+    #00affa 30%,
+    #0190cd 70%,
+    #764ada 80%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 500% auto;
+  font-family: "Poppins", sans-serif;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
